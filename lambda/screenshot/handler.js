@@ -54,13 +54,20 @@ module.exports.screenshot = async (event, context, callback) => {
     const screenshot = await page.screenshot();
     await browser.close();
 
-    if (viewport !== 'iPad Pro landscape') {
-      let image = await sharp(__dirname + '/assets/browser.png')
-      .composite([{ input: screenshot, top: 138, left: 112 }]);
-    }
+  //   if (viewport !== 'iPad Pro landscape') {
+  //     let image = await sharp(__dirname + '/assets/browser.png')
+  //     .composite([{ input: screenshot, top: 138, left: 112 }]);
+  //   }
+
+  // const buffer = await image.toBuffer();
+  let image = await sharp(screenshot)
+  // .overlayWith(screenshot, { top: 138, left: 112 });
+    // .composite([{  }]);
+  // if (color !== 'transparent') {
+  //   image = await image.flatten({ background: { r, g, b, alpha: 1 } });
+  // }
 
   const buffer = await image.toBuffer();
-
 
   callback(null, {
     statusCode: 200,
